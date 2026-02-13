@@ -4,22 +4,26 @@ const cfg = {
   endW: 634, endH: 680,
   scrollRangeMultiplier: 1,
   startRotation: 33.163,
-  endRotation: 0
+  endRotation: 0,
+  startOffsetRatio: 0.5
 };
 
 const stage = document.getElementById('stage');
 const sticky = document.getElementById('sticky');
 const box = document.getElementById('box');
 
-const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 let rAF = null;
 
 function computeProgress() {
   const scrollY = window.pageYOffset || document.documentElement.scrollTop;
   const stageRect = stage.getBoundingClientRect();
+  const startOffset = window.innerHeight * cfg.startOffsetRatio;
   const stageTopDoc = scrollY + stageRect.top;
+  const startScroll = stageTopDoc - startOffset;
 
-  const startScroll = stageTopDoc;
+
+  // const startScroll = stageTopDoc;
   const scrollRange = window.innerHeight * cfg.scrollRangeMultiplier;
   const endScroll = startScroll + scrollRange;
 
